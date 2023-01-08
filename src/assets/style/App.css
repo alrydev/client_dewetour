@@ -1,0 +1,136 @@
+ /* membuat container atau wadah dari scrollbar dengan lebar 20px  */
+ ::-webkit-scrollbar {
+   width: 0px;
+ }
+
+ /* membuat background dari scrollbar */
+ /* kasih warna transparan  */
+ /* ::-webkit-scrollbar-track {
+   background-color: transparent;
+ } */
+
+
+ /* membuat styling pada batang atau bar scrollbar  */
+ /* beri warna abu tua dengan lengkungan di sisi atas dan bawahnya  */
+ /* ::-webkit-scrollbar-thumb {
+   background-color: #d6dee1;
+   border-radius: 20px;
+   border: 6px solid transparent;
+   background-clip: content-box;
+ } */
+
+ /* warna akan berubah menjadi abu mudah saat kursor diarahkan  */
+ /* ::-webkit-scrollbar-thumb:hover {
+   background-color: #a8bbbf;
+ } */
+
+ .header-greet {
+   width: 60%;
+   padding: 2rem;
+   /* display: flex; */
+   /* justify-content: center; */
+ }
+
+ .bg-white-trans {
+   background-color: rgba(255, 255, 255, 0.322);
+ }
+
+ .header-section {
+   background-image: url(../images/bg.png);
+   background-size: cover;
+   margin-top: -95px;
+   width: 100%;
+   height: 80vh;
+ }
+
+ .header-section-bottom {
+   margin-top: -50px;
+ }
+
+
+ .tour-card-section {
+   background-color: rgb(240, 240, 240);
+ }
+
+ .text-grey {
+   color: rgb(80, 80, 80);
+ }
+
+ .text-grey2 {
+   color: rgb(134, 134, 134);
+ }
+
+ .warningg {
+   background-color: rgb(255, 145, 0) !important;
+ }
+
+ .width-button-auth {
+   width: 100px;
+ }
+
+ .text-header-greet {
+   font-size: 64px;
+   font-weight: 700;
+ }
+
+ .text-header-greet2 {
+   font-style: normal;
+   font-weight: 300;
+   font-size: 50px;
+   /* line-height: 78px; */
+
+ }
+
+ .bg-lightgrey {
+   background-color: rgb(226, 226, 226) !important;
+ }
+
+ .pointer {
+   cursor: pointer;
+ }
+
+ .w-80 {
+   width: 85%;
+ }
+
+ .width-100 {
+   width: 100% !important;
+ }
+
+ .w-customm {
+   width: 100rem;
+ }
+
+ /* .pe-custom {
+  padding-right: 20rem;
+} */
+
+ .mt-min {
+   margin-top: -5rem;
+ }
+
+ .text-orange {
+   color: rgb(218, 58, 0) !important;
+ }
+
+ .text-trns {
+   color: rgba(240, 248, 255, 0);
+ }
+
+ .bg-trns {
+   background-color: rgba(240, 248, 255, 0);
+ }
+
+ .width-pop {
+   width: 10rem;
+ }
+
+ /* .widthbooking {
+  background-color: yellow;
+  width: 50rem;
+} */
+
+ .navbarr {
+   background-image: url(../images/bgnav.png);
+   height: 11vh;
+ }
