@@ -1,6 +1,6 @@
 import axios from 'axios'
 export const API = axios.create({
-    baseURL: "http://localhost:8000/api/v1/",
+    baseURL: "https://serverdewetour-production.up.railway.app/api/v1/",
 })
 
 export const setAuthToken = (token) => {
