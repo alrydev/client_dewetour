@@ -15,7 +15,7 @@ export default function CardProfile() {
 
     const [state,] = useContext(UserContext)
 
-    const {data: user, refetch: userRefetch} = useQuery('userCache', async () =>{
+    const {data: user, refetch: userRefetch, isFetching} = useQuery('userCache', async () =>{
         const response = await API.get(`/user/${state?.user.id}`)
         return response.data.data
     })
@@ -74,6 +74,19 @@ export default function CardProfile() {
     const handleShow = () => setShow(true);
 
     console.log("data user", user )
+
+    if (isFetching) {
+        return(
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                heigh: '100vh'
+            }}>
+                <h1 style={{color: 'white'}}>Loading...</h1>
+            </div>
+        )
+    }
 
     return (
         <>
