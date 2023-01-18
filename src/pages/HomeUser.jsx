@@ -10,7 +10,7 @@ export default function HomeUser() {
         <>
             <NavUser />
             <Jumbotron />
-            <TourCardSelection />
+            <TourCardSelection searchs={searchs} />
             <Footer />
         </>
     )

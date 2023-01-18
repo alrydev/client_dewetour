@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
 
-export default function TourCardSection() {
+export default function TourCardSection({searchs}) {
     const [modalConfirm, setConfirm] = useState(false);
     const closeConfirm = () => setConfirm(false);
     const showConfirm = () => setConfirm(true);
@@ -42,7 +42,72 @@ export default function TourCardSection() {
                 <h2 className='text-center p-5'>GROUP TOUR</h2>
                 <div>
                     <div className="row">
-                        {trips?.map((items) => (
+                    {trips?.filter((value) => {
+                    if (searchs === "") {
+                        return value
+                    } else if (value.title.toLowerCase().includes(searchs.toLocaleLowerCase())) {
+                        return value
+                    }
+                }).map((items) => (
+
+                    <div className="col-sm-4 d-flex justify-content-center mb-5">
+
+                                {state.isLogin === true && state.user.role === "user" ?
+                                    <>
+                                        <Card className='border-0 pointer' style={{ width: '22rem' }}
+
+                                            onClick={() => { navigate(`/detail/${items.id}`) }}
+                                        >
+                                            <span className='fw-light text-grey bg-white-trans mt-3 ps-1 pe-3 rounded-end' variant="end" style={{ position: "absolute" }}>
+                                                remaining quota: <span className='fw-bold'>{items.quota}</span>
+                                            </span>
+                                            <Card.Img className='pointer' variant="top" src={items.image} alt='' />
+
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    {items.title}
+                                                </Card.Title>
+                                                <div className='d-flex justify-content-between'>
+                                                    <span className='fw-bold text-warning' >
+                                                        {formatRupiah.format(items.priceTrip)}
+                                                    </span>
+                                                    <span className='fw-bold text-grey'>
+                                                        {items.country.name}
+                                                    </span>
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+                                    </>
+
+                                    :
+                                    <Card className='border-0 pointer' style={{ width: '22rem' }}
+
+                                        onClick={() => setConfirm(true)}
+                                    >
+                                        <Card.Img className='pointer' variant="top" src={items.image} alt='' />
+                                        <span className='fw-light text-grey bg-white-trans mt-3 ps-1 pe-3 rounded-end' variant="end" style={{ position: "absolute" }}>
+                                            remaining quota: <span className='fw-bold'>{items.quota}</span>
+                                        </span>
+                                        <Card.Body>
+                                            <Card.Title>
+                                                {items.title}
+                                            </Card.Title>
+                                            <div className='d-flex justify-content-between'>
+                                                <span className='fw-bold text-warning' >
+                                                    {formatRupiah.format(items.priceTrip)}
+                                                </span>
+                                                <span className='fw-bold text-grey'>
+                                                    {items.country.name}
+                                                </span>
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                }
+
+                    </div>
+
+                ))}
+                        {/* {trips?.map((items) => (
                             <div className="col-sm-4 d-flex justify-content-center mb-5">
 
                                 {state.isLogin === true && state.user.role === "user" ?
@@ -98,7 +163,7 @@ export default function TourCardSection() {
                                 }
 
                             </div>
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </section>

@@ -38,6 +38,8 @@ export default function Jumbotron() {
         window.location.reload()
     }
 
+    const [searchs, setSearch] = useState("")
+
 
     return (
         <>
@@ -56,9 +58,9 @@ export default function Jumbotron() {
                     <p className='text-white' >Find great places to holiday</p>
                     <Form onSubmit={handleOnSubmit} className='d-flex justify-content-center' >
                         <Form.Control onChange={handleChange} className='w-50 rounded-0 border-0' type="text" placeholder='search countries' name='country' />
-                        <Button variant="warning" type="submit" className='rounded-0 text-white fw-bold'>
+                        {/* <Button variant="warning" type="submit" className='rounded-0 text-white fw-bold'>
                             Search
-                        </Button>
+                        </Button> */}
                     </Form>
                 </div>
 
