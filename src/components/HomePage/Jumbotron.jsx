@@ -25,18 +25,18 @@ export default function Jumbotron() {
     //     })
     // }
 
-    const handleOnSubmit = (e) => {
-        let filteredTrips = dataTrip.filter(function (e) {
-            return e.country === search.country
-        })
-        e.preventDefault()
-        console.log(search)
-        console.log(filteredTrips)
+    // const handleOnSubmit = (e) => {
+    //     let filteredTrips = dataTrip.filter(function (e) {
+    //         return e.country === search.country
+    //     })
+    //     e.preventDefault()
+    //     console.log(search)
+    //     console.log(filteredTrips)
 
 
-        localStorage.setItem("DATA_SEARCH", JSON.stringify(filteredTrips))
-        window.location.reload()
-    }
+    //     localStorage.setItem("DATA_SEARCH", JSON.stringify(filteredTrips))
+    //     window.location.reload()
+    // }
 
     const [searchs, setSearch] = useState("")
 
