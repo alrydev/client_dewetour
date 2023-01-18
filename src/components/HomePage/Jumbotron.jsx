@@ -9,7 +9,7 @@ import HeaderCard from '../../DataDummy/HeaderCard';
 
 
 
-export default function Jumbotron() {
+export default function Jumbotron({ setSearch }) {
     // export default function Jumbotron({ search, searchCountry, filteredTrips }) {
 
     // let dataTrip = JSON.parse(localStorage.getItem("DATA_TRIP"))
@@ -38,7 +38,7 @@ export default function Jumbotron() {
     //     window.location.reload()
     // }
 
-    const [searchs, setSearch] = useState("")
+    // const [searchs, setSearch] = useState("")
 
 
     return (
