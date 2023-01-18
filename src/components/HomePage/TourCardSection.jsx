@@ -45,7 +45,7 @@ export default function TourCardSection({searchs}) {
                     {trips?.filter((value) => {
                     if (searchs === "") {
                         return value
-                    } else if (value.title.toLowerCase().includes(searchs.toLocaleLowerCase())) {
+                    } else if (value.title.toLowerCase().includes(searchs.toLowerCase())) {
                         return value
                     }
                 }).map((items) => (
