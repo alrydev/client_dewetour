@@ -5,7 +5,7 @@ import Jumbotron from '../components/HomePage/Jumbotron'
 import TourCardSelection from '../components/HomePage/TourCardSection'
 import Footer from '../components/HomePage/Footer'
 
-export default function HomeUser() {
+export default function HomeUser({searchs}) {
     return (
         <>
             <NavUser />
