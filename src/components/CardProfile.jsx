@@ -15,7 +15,7 @@ export default function CardProfile() {
 
     const [state,] = useContext(UserContext)
 
-    const {data: user, refetch: userRefetch, isFetching} = useQuery('userCache', async () =>{
+    const {data: user, refetch: userRefetch, isLoading} = useQuery('userCache', async () =>{
         const response = await API.get(`/user/${state?.user.id}`)
         return response.data.data
     })
@@ -75,7 +75,7 @@ export default function CardProfile() {
 
     console.log("data user", user )
 
-    if (isFetching) {
+    if (isLoading) {
         return(
             <div style={{
                 display: 'flex',
