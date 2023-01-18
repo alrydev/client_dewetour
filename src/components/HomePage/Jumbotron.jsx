@@ -16,14 +16,14 @@ export default function Jumbotron() {
 
 
 
-    let [search, searchCountry] = useState()
+    // let [search, searchCountry] = useState()
     let dataTrip = JSON.parse(localStorage.getItem("DATA_TRIP"))
 
-    const handleChange = (e) => {
-        searchCountry({
-            [e.target.name]: e.target.value
-        })
-    }
+    // const handleChange = (e) => {
+    //     searchCountry({
+    //         [e.target.name]: e.target.value
+    //     })
+    // }
 
     const handleOnSubmit = (e) => {
         let filteredTrips = dataTrip.filter(function (e) {
@@ -57,7 +57,7 @@ export default function Jumbotron() {
                 <div className='text-center fw-light' >
                     <p className='text-white' >Find great places to holiday</p>
                     <Form onSubmit={handleOnSubmit} className='d-flex justify-content-center' >
-                        <Form.Control onChange={handleChange} className='w-50 rounded-0 border-0' type="text" placeholder='search countries' name='country' />
+                        <Form.Control onChange={e => { setSearch(e.target.value) }} className='w-50 rounded-0 border-0' type="text" placeholder='search countries' name='country' />
                         {/* <Button variant="warning" type="submit" className='rounded-0 text-white fw-bold'>
                             Search
                         </Button> */}
