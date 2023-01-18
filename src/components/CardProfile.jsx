@@ -15,7 +15,7 @@ export default function CardProfile() {
 
     const [state,] = useContext(UserContext)
 
-    const {data: user, refetch} = useQuery('userCache', async () =>{
+    const {data: user, refetch: userRefetch} = useQuery('userCache', async () =>{
         const response = await API.get(`/user/${state?.user.id}`)
         return response.data.data
     })
@@ -56,8 +56,8 @@ export default function CardProfile() {
             formData.set('image', form.image[0])
 
             const response = await API.patch('/user', formData, form, config)
-            if(response.status === 200) {
-                refetch()
+            if(response.status == 200) {
+                userRefetch()
             }
             // window.location.reload()
             console.log(response);
@@ -72,6 +72,8 @@ export default function CardProfile() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    console.log("data user", user )
 
     return (
         <>
