@@ -56,7 +56,7 @@ export default function Jumbotron() {
 
                 <div className='text-center fw-light' >
                     <p className='text-white' >Find great places to holiday</p>
-                    <Form onSubmit={handleOnSubmit} className='d-flex justify-content-center' >
+                    <Form  className='d-flex justify-content-center' >
                         <Form.Control onChange={e => { setSearch(e.target.value) }} className='w-50 rounded-0 border-0' type="text" placeholder='search countries' name='country' />
                         {/* <Button variant="warning" type="submit" className='rounded-0 text-white fw-bold'>
                             Search
