@@ -90,7 +90,7 @@ export default function CardProfile() {
                                         </div>
                                         <div className="">
                                             <div>
-                                                {user?.Name}
+                                                {user?.name}
                                             </div>
                                             <span className='fw-light text-grey' >fullname</span>
                                         </div>
@@ -161,7 +161,7 @@ export default function CardProfile() {
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Fullname</Form.Label>
-                            <Form.Control onChange={handleOnChange} name="name" type="text" defaultValue={user?.Name} />
+                            <Form.Control onChange={handleOnChange} name="name" type="text" defaultValue={user?.name} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
