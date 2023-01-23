@@ -10,15 +10,6 @@ import HeaderCard from '../../DataDummy/HeaderCard';
 
 
 export default function Jumbotron({ setSearch }) {
-    let [search, searchCountry] = useState()
-    let dataTrip = JSON.parse(localStorage.getItem("DATA_TRIP"))
-
-    const handleChange = (e) => {
-        searchCountry({
-            [e.target.name]: e.target.value
-        })
-    }
-
 
 
     return (

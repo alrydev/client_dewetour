@@ -9,9 +9,16 @@ import { MdLocationOn } from 'react-icons/md';
 import { API } from '../config/api';
 import { UserContext } from '../context/userContext';
 import { useContext } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 export default function CardProfile() {
+
+    const [state,] = useContext(UserContext)
+
+    const {data: user, refetch: userRefetch, isLoading} = useQuery('userCache', async () =>{
+        const response = await API.get(`/user/${state?.user.id}`)
+        return response.data.data
+    })
 
     const [form, setForm] = useState({
         name: "",
@@ -49,7 +56,10 @@ export default function CardProfile() {
             formData.set('image', form.image[0])
 
             const response = await API.patch('/user', formData, form, config)
-            window.location.reload()
+            if(response.status == 200) {
+                userRefetch()
+            }
+            // window.location.reload()
             console.log(response);
 
         } catch (error) {
@@ -63,8 +73,20 @@ export default function CardProfile() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    console.log("data user", user )
 
-    const [state,] = useContext(UserContext)
+    if (isLoading) {
+        return(
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                heigh: '100vh'
+            }}>
+                <h1 style={{color: 'white'}}>Loading...</h1>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -81,7 +103,7 @@ export default function CardProfile() {
                                         </div>
                                         <div className="">
                                             <div>
-                                                {state.user.Name}
+                                                {user?.name}
                                             </div>
                                             <span className='fw-light text-grey' >fullname</span>
                                         </div>
@@ -94,7 +116,7 @@ export default function CardProfile() {
                                         </div>
                                         <div className="">
                                             <div>
-                                                {state.user.address}
+                                                {user?.address}
                                             </div>
                                             <span className='fw-light text-grey' >address</span>
                                         </div>
@@ -107,7 +129,7 @@ export default function CardProfile() {
                                         </div>
                                         <div className="">
                                             <div>
-                                                {state.user.email}
+                                                {user?.email}
                                             </div>
                                             <span className='fw-light text-grey' >email</span>
                                         </div>
@@ -120,7 +142,7 @@ export default function CardProfile() {
                                         </div>
                                         <div className="">
                                             <div>
-                                                {state.user.phone}
+                                                {user?.phone}
                                             </div>
                                             <span className='fw-light text-grey' >phone</span>
                                         </div>
@@ -152,20 +174,20 @@ export default function CardProfile() {
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Fullname</Form.Label>
-                            <Form.Control onChange={handleOnChange} name="name" type="text" defaultValue={state.user.Name} />
+                            <Form.Control onChange={handleOnChange} name="name" type="text" defaultValue={user?.name} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control onChange={handleOnChange} name="address" type="text" defaultValue={state.user.address} />
+                            <Form.Control onChange={handleOnChange} name="address" type="text" defaultValue={user?.address} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Phone</Form.Label>
-                            <Form.Control onChange={handleOnChange} name="phone" type="number" defaultValue={state.user.phone} />
+                            <Form.Control onChange={handleOnChange} name="phone" type="number" defaultValue={user?.phone} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control onChange={handleOnChange} name="email" type="email" defaultValue={state.user.email} />
+                            <Form.Control onChange={handleOnChange} name="email" type="email" defaultValue={user?.email} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="">
                             <Form.Label>Password</Form.Label>
