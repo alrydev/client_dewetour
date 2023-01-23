@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button, FloatingLabel } from 'react-bootstrap'
 import { API } from '../../config/api';
 
+
 import { useMutation, useQuery } from 'react-query';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -173,9 +174,18 @@ export default function CardAddTrip() {
                     </Form.Group>
 
                     <div className='d-flex justify-content-center'>
-                        <Button className='ps-5 pe-5 fw-bold text-light text-center' variant='warning' type="submit">
-                            Add Trip
-                        </Button>
+                        {
+                            handleSubmit.isLoading ? (
+                                <Button className='ps-5 pe-5 fw-bold text-light text-center' variant='warning' type="submit">
+                                    Loading
+                                </Button>
+                            ) : (
+                                <Button className='ps-5 pe-5 fw-bold text-light text-center' variant='warning' type="submit">
+                                    Add Trip
+                                </Button>
+                            )
+                        }
+
 
                     </div>
                 </Form>

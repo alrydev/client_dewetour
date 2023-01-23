@@ -1,21 +1,15 @@
 import React, { useState } from 'react'
 
 import { Button, Form, Card, Stack } from 'react-bootstrap';
-import { useQuery } from 'react-query';
-import { API } from '../../config/api';
+
+import { Fade, Slide } from "react-awesome-reveal";
 
 import HeaderCard from '../../DataDummy/HeaderCard';
 
 
 
 
-export default function Jumbotron() {
-    // export default function Jumbotron({ search, searchCountry, filteredTrips }) {
-
-    // let dataTrip = JSON.parse(localStorage.getItem("DATA_TRIP"))
-
-
-
+export default function Jumbotron({ setSearch }) {
     let [search, searchCountry] = useState()
     let dataTrip = JSON.parse(localStorage.getItem("DATA_TRIP"))
 
@@ -25,18 +19,6 @@ export default function Jumbotron() {
         })
     }
 
-    const handleOnSubmit = (e) => {
-        let filteredTrips = dataTrip.filter(function (e) {
-            return e.country === search.country
-        })
-        e.preventDefault()
-        console.log(search)
-        console.log(filteredTrips)
-
-
-        localStorage.setItem("DATA_SEARCH", JSON.stringify(filteredTrips))
-        window.location.reload()
-    }
 
 
     return (
@@ -47,18 +29,19 @@ export default function Jumbotron() {
             <section className='header-section pt-5 mt-0'>
                 <div className='d-flex justify-content-center'>
                     <div className='header-greet text-white d-flex justify-content-center flex-column pt-5 mt-5'>
-                        <p className='text-header-greet '>Explore</p>
-                        <p className='text-header-greet2 fw-light '>your amazing city together</p>
+                        <Fade>
+                            <p className='text-header-greet '>Explore</p>
+                        </Fade>
+                        <Slide>
+                            <p className='text-header-greet2 fw-light '>your amazing city together</p>
+                        </Slide>
                     </div>
                 </div>
 
                 <div className='text-center fw-light' >
                     <p className='text-white' >Find great places to holiday</p>
-                    <Form onSubmit={handleOnSubmit} className='d-flex justify-content-center' >
-                        <Form.Control onChange={handleChange} className='w-50 rounded-0 border-0' type="text" placeholder='search countries' name='country' />
-                        <Button variant="warning" type="submit" className='rounded-0 text-white fw-bold'>
-                            Search
-                        </Button>
+                    <Form className='d-flex justify-content-center' >
+                        <Form.Control onChange={e => { setSearch(e.target.value) }} className='w-50 rounded-5 border-0' type="text" placeholder='search trips' name='country' />
                     </Form>
                 </div>
 

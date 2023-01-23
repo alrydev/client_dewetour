@@ -16,8 +16,6 @@ import Login from '../Modals/Login';
 import Register from '../Modals/Register';
 
 
-
-
 export default function NavUser() {
 
     const navigate = useNavigate()
@@ -62,12 +60,24 @@ export default function NavUser() {
         <>
             <Navbar className='navbarr fixed-top mb-5' style={{ height: "10vh" }} >
                 <Container>
-                    <Navbar.Brand href="#home">
-                        <img onClick={() => navigate("/")} src={IconLogo} alt='' ></img>
-                    </Navbar.Brand>
+                    {state.user.role === 'admin' ? (
+                        <Navbar.Brand>
+                            <img onClick={() => navigate("/transaction")} src={IconLogo} alt='' ></img>
+                        </Navbar.Brand>
+                    ) : (
+                        <Navbar.Brand>
+                            <img onClick={() => navigate("/")} src={IconLogo} alt='' ></img>
+                        </Navbar.Brand>
+                    )}
+
                     <div className='d-flex' >
                         {state.isLogin === true ? (
                             <>
+                                <div className='d-flex align-items-end me-3 w-100'>
+                                    <p className='text-light bold' style={{ fontFamily: "Poppins" }}>
+                                        Hi, {state.user.Name}
+                                    </p>
+                                </div>
                                 <img style={{
                                     width: "55px",
                                     height: "55px",
@@ -88,35 +98,35 @@ export default function NavUser() {
                                                     <div onClick={() => navigate("/income-trip")} className="d-flex justify-content-between align-items-center fw-bold pointer">
                                                         <img src={tripIcon} alt=''></img>
                                                         <span className='ps-3 w-50 text-center'>
-                                                            trip
+                                                            TRIP
                                                         </span>
                                                     </div>
                                                     <div onClick={() => navigate("/transaction")} className="d-flex justify-content-between align-items-center fw-bold pointer">
                                                         <img src={tripIcon} alt=''></img>
                                                         <span className='ps-3 w-100 text-center'>
-                                                            transaction
+                                                            TRANSACTION
                                                         </span>
                                                     </div>
                                                     <div onClick={logout} className="d-flex justify-content-between align-items-center fw-bold pointer">
                                                         <img src={logoutIcon} alt=''></img>
-                                                        logout
+                                                        LOGOUT
                                                     </div>
                                                 </Stack>
                                             ) : (
                                                 <Stack gap={3}>
                                                     <div onClick={() => navigate("/profile")} className="d-flex justify-content-between align-items-center fw-bold pointer">
                                                         <img src={profileIcon} alt=''></img>
-                                                        profile
+                                                        PROFILE
                                                     </div>
                                                     <div onClick={() => navigate("/pay")} className="d-flex justify-content-between align-items-center fw-bold pointer">
                                                         <img src={payIcon} alt=''></img>
                                                         <span className='ps-3 w-50 text-center'>
-                                                            pay
+                                                            TRANSACTION
                                                         </span>
                                                     </div>
                                                     <div onClick={logout} className="d-flex justify-content-between align-items-center fw-bold pointer">
                                                         <img src={logoutIcon} alt=''></img>
-                                                        logout
+                                                        LOGOUT
                                                     </div>
                                                 </Stack>
                                             )}

@@ -15,13 +15,23 @@ export default function CardIncomeTrip() {
         maximumFractionDigits: 0,
     })
 
-    let { data: incomeTrips } = useQuery('incomeCache', async () => {
+    let { data: incomeTrips, refetch } = useQuery('incomeCache', async () => {
         const response = await API.get("/trips")
         return response.data.data
     })
 
 
+
+
     console.log("ini income trips: ", incomeTrips);
+
+    let handleDelete = async (id) => {
+        await API.delete(`/trip/` + id)
+        window.location.reload()
+        // navigate("/income-trip")
+        // refetch()
+    }
+
 
 
 
@@ -56,6 +66,17 @@ export default function CardIncomeTrip() {
                                             </span>
                                         </div>
                                     </Card.Body>
+                                    <div className='w-100 d-flex justify-content-between ps-2 pe-2 pb-2'>
+                                        <Button
+                                            onClick={() => { navigate(`/update-trip/${items.id}`) }}
+                                            variant='warning' style={{ width: "45%" }}>Edit</Button>
+                                        <Button
+                                            onClick={() => {
+                                                handleDelete(items.id)
+                                            }}
+                                            variant='danger' style={{ width: "45%" }}>delete
+                                        </Button>
+                                    </div>
                                 </Card>
                             </div>
                         ))}

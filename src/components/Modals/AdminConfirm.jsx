@@ -2,6 +2,7 @@ import React from 'react'
 import { API } from '../../config/api';
 import { Modal, Card, Stack, Button, Col, Row, Table, } from 'react-bootstrap';
 import iconBooking from '../../assets/images/iconBooking.png'
+import { useQuery } from 'react-query';
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -9,6 +10,10 @@ const Swal2 = withReactContent(Swal)
 
 export default function AdminConfirm({ setConfirm, modalConfirm, dataModal }) {
 
+    let { data: transactions, refetch } = useQuery('transactionsCache', async () => {
+        const response = await API.get('/transactions')
+        return response.data.data
+    })
 
     const handleApprove = async () => {
         try {
@@ -23,7 +28,9 @@ export default function AdminConfirm({ setConfirm, modalConfirm, dataModal }) {
                     timer: 2000
                 })
                 setConfirm(false)
+                refetch()
             }
+
         } catch (error) {
             console.log(error);
         }
@@ -42,13 +49,14 @@ export default function AdminConfirm({ setConfirm, modalConfirm, dataModal }) {
                     timer: 2000
                 })
                 setConfirm(false)
+                refetch()
             }
         } catch (error) {
             console.log(error);
         }
     }
 
-    console.log("ini data aprove tidak", dataModal)
+    // console.log("ini data aprove tidak", dataModal)
     const closeConfirm = () => setConfirm(false);
     return (
         <>

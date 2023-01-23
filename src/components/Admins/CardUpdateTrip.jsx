@@ -1,20 +1,32 @@
 import React, { useState } from 'react'
 import { Form, Button, FloatingLabel } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
 import { API } from '../../config/api';
-
+import NavUser from '../navbar/NavUser';
 import { useMutation, useQuery } from 'react-query';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from 'react-router-dom'
+const Swal2 = withReactContent(Swal)
+
 
 export default function CardUpdateTrip() {
 
-    // let { data: tripBefore } = useQuery('tripBefore', async () => {
-    //     const response = await API.get('trip')
-    // })
+    const navigate = useNavigate()
 
-
+    let { id } = useParams()
     let { data: countries } = useQuery('countriesCachce', async () => {
         const response = await API.get('/countries')
         return response.data.data
     })
+
+    let { data: trip, refetch } = useQuery('updateTripsCache', async () => {
+        const response = await API.get('/trip/' + id)
+
+        return response.data.data
+    })
+
+    console.log("ini trip by id", trip);
 
 
     const [form, setForm] = useState({
@@ -41,7 +53,7 @@ export default function CardUpdateTrip() {
                 e.target.type === 'file' ? e.target.files : e.target.value
         })
     }
-    const handleSubmit = useMutation(async (e) => {
+    const handleUpdate = useMutation(async (e) => {
         try {
             e.preventDefault()
             const config = {
@@ -64,7 +76,20 @@ export default function CardUpdateTrip() {
             formData.set('desc', form.desc)
             formData.set('image', form.image[0])
 
-            const response = await API.patch('/trip', formData, form, config)
+            const response = await API.patch(`/trip/${id}`, formData, form, config)
+
+            if (response?.status === 200) {
+                Swal2.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Update Success',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+                navigate("/income-trip")
+
+            }
+
             console.log(response);
 
         } catch (error) {
@@ -72,18 +97,19 @@ export default function CardUpdateTrip() {
         }
     })
 
-
+    refetch()
     return (
         <>
-            <div className='d-flex justify-content-center mb-4 mt-5 pt-5'>
-                <h3 className="fw-bold w-50 mt-5 pt-5">Add Trip</h3>
+            <NavUser />
+            <div className='d-flex justify-content-center mb-4 pt-5'>
+                <h3 className="fw-bold w-50 mt-5 pt-5">Update Trip</h3>
             </div>
             <div className='d-flex justify-content-center mb-5'>
 
-                <Form className='w-50 mb-5' onSubmit={(e) => handleSubmit.mutate(e)}>
+                <Form className='w-50 mb-5' onSubmit={(e) => handleUpdate.mutate(e)}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className='fw-bold'>Title Trip</Form.Label>
-                        <Form.Control name="title" onChange={handleOnChange} className='bg-lightgrey border-0 w-100' type="text" />
+                        <Form.Control defaultValue={trip?.title} name="title" onChange={handleOnChange} className='bg-lightgrey border-0 w-100' type="text" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label className='w-100 fw-bold' >Country</Form.Label>
@@ -97,18 +123,18 @@ export default function CardUpdateTrip() {
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Accomodation</Form.Label>
-                        <Form.Control name='accomodation' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
+                        <Form.Control defaultValue={trip?.accomodation} name='accomodation' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
                     </Form.Group>
 
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Transportation</Form.Label>
-                        <Form.Control name='transportation' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
+                        <Form.Control defaultValue={trip?.transportation} name='transportation' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Eat</Form.Label>
-                        <Form.Control name='meal' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
+                        <Form.Control defaultValue={trip?.meal} name='meal' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -127,24 +153,25 @@ export default function CardUpdateTrip() {
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Date Trip</Form.Label>
-                        <Form.Control name='date' onChange={handleOnChange} className='bg-lightgrey border-0' type="date" />
+                        <Form.Control defaultValue={trip?.dateTrip} name='date' onChange={handleOnChange} className='bg-lightgrey border-0' type="date" />
                     </Form.Group>
 
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Price</Form.Label>
-                        <Form.Control name='price' onChange={handleOnChange} className='bg-lightgrey border-0' type="number" />
+                        <Form.Control defaultValue={trip?.priceTrip} name='price' onChange={handleOnChange} className='bg-lightgrey border-0' type="number" />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Quota</Form.Label>
-                        <Form.Control name='quota' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
+                        <Form.Control defaultValue={trip?.quota} name='quota' onChange={handleOnChange} className='bg-lightgrey border-0' type="text" />
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                         <Form.Label className='fw-bold'>Description</Form.Label>
                         <FloatingLabel controlId="floatingTextarea2" >
                             <Form.Control
+                                defaultValue={trip?.desc}
                                 name='desc'
                                 onChange={handleOnChange}
                                 className='bg-lightgrey border-0'
@@ -161,7 +188,7 @@ export default function CardUpdateTrip() {
 
                     <div className='d-flex justify-content-center'>
                         <Button className='ps-5 pe-5 fw-bold text-light text-center' variant='warning' type="submit">
-                            Add Trip
+                            Update
                         </Button>
 
                     </div>

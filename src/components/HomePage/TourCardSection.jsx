@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
 
-export default function TourCardSection() {
+export default function TourCardSection({ searchs }) {
     const [modalConfirm, setConfirm] = useState(false);
     const closeConfirm = () => setConfirm(false);
     const showConfirm = () => setConfirm(true);
@@ -32,7 +32,7 @@ export default function TourCardSection() {
         const response = await API.get('/trips')
         return response.data.data
     })
-    console.log("ini data trips ", trips);
+    // console.log("ini data trips ", trips);
 
 
     return (
@@ -42,7 +42,13 @@ export default function TourCardSection() {
                 <h2 className='text-center p-5'>GROUP TOUR</h2>
                 <div>
                     <div className="row">
-                        {trips?.map((items) => (
+                        {trips?.filter((value) => {
+                            if (searchs === "") {
+                                return value
+                            } else if (value.title.toLowerCase().includes(searchs?.toLowerCase())) {
+                                return value
+                            }
+                        }).map((items) => (
                             <div className="col-sm-4 d-flex justify-content-center mb-5">
 
                                 {state.isLogin === true && state.user.role === "user" ?
@@ -98,6 +104,7 @@ export default function TourCardSection() {
                                 }
 
                             </div>
+
                         ))}
                     </div>
                 </div>

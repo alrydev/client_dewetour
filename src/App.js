@@ -9,6 +9,7 @@ import IncomeTripAdminPage from './pages/IncomeTripAdminPage';
 import PayPage from './pages/PayPage';
 import TransactionAdminPage from './pages/TransactionAdminPage';
 import AddCountryPage from './pages/AddCountryPage';
+import CardUpdateTrip from './components/Admins/CardUpdateTrip';
 import { Router, useNavigate } from 'react-router-dom';
 
 import { Routes, Route } from 'react-router-dom';
@@ -36,21 +37,14 @@ function App() {
 
   const [state, dispatch] = useContext(UserContext)
 
-
-  // =============================================
-
-
-
-  // =================================================================
-
   useEffect(() => {
     // Redirect Auth
     if (state.isLogin === false) {
       navigate('/');
     } else {
-      if (state.user.status === 'admin') {
+      if (state.user.role === 'admin') {
         navigate('/transaction');
-      } else if (state.user.status === 'user') {
+      } else if (state.user.role === 'user') {
         navigate('/');
       }
     }
@@ -97,6 +91,7 @@ function App() {
 
         <Route exacth path="/transaction" element={< TransactionAdminPage />} />
         <Route exacth path="/add-trip" element={< AddTripPage />} />
+        <Route exacth path="/update-trip/:id" element={< CardUpdateTrip />} />
         <Route exacth path="/add-country" element={< AddCountryPage />} />
         <Route exacth path="/income-trip" element={< IncomeTripAdminPage />} />
       </Routes>

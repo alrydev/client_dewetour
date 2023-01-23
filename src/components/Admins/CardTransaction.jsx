@@ -7,12 +7,15 @@ import { useQuery } from 'react-query'
 
 import searchIcon from '../../assets/images/searchIcon.png'
 import AdminConfirm from '../Modals/AdminConfirm'
+import { useContext } from 'react'
+import { UserContext } from '../../context/userContext'
 
 
 export default function CardTransaction() {
 
     // ========================================================
-
+    const [state, disptach] = useContext(UserContext)
+    console.log("ini state", state);
 
 
     // =======================================================
@@ -25,7 +28,7 @@ export default function CardTransaction() {
 
 
 
-    let { data: transactions } = useQuery('transactionsCache', async () => {
+    let { data: transactions, refetch } = useQuery('transactionsCache', async () => {
         const response = await API.get('/transactions')
         return response.data.data
     })
@@ -36,6 +39,14 @@ export default function CardTransaction() {
         setConfirm(true)
     }
 
+    // if (isFetching) {
+    //     return (
+    //         <>
+    //             Fetching cuy...
+    //         </>
+    //     )
+
+    // }
 
     return (
         <>
